@@ -1,6 +1,6 @@
 //Mét. de Secante para encontrar raízes de funções
 
-clear(); clc()    // limpa variaveis
+clear();   // limpa variaveis
 
 printf("*********** Aproximação de raízes de funções usando o método de Secante ***********\n\n")
 printf("*********** Exemplo com a função padrão ***********\n\n")
