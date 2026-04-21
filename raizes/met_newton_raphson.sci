@@ -6,13 +6,20 @@ clear();    // limpa variaveis
 printf("*********** Aproximação de raízes de funções usando o método de Newton-Raphson ***********\n\n")
 printf("*********** Exemplo com a função padrão ***********\n\n")
 
-deff('y = f(x)', 'y = x^3 - 9*x + 3')
-deff('y = f1(x)', 'y = 3*x^2 - 9')
 
-x_anterior = 0.5
+deff('y = f(x)', 'y = exp(-x)-sin(x)')
+deff('y = f1(x)', 'y = -exp(-x)-cos(x)')
+//deff('y = f(x)', 'y = x^2 + log(x)')
+//deff('y = f1(x)', 'y = 2*x + 1/x')
+//deff('y = f(x)', 'y = x^3 - 9*x + 3')
+//deff('y = f1(x)', 'y = 3*x^2 - 9')
 
-epsilon1 = 1e-6
-epsilon2 = 1e-6
+
+
+x_anterior = 0.75
+
+epsilon1 = 1e-5
+epsilon2 = 1e-5
 k = 0
 nmax = 100
 x_atual = x_anterior - (f(x_anterior) / f1(x_anterior))

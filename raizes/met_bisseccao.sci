@@ -1,19 +1,24 @@
 //Mét. Bissecção para encontrar raízes de funções
 
-clear(); clc() // limpa variaveis
+clear(); // limpa variaveis
 
 printf("*********** Aproximação de raízes de funções usando o método da bissecção ***********\n\n")
 printf("*********** Exemplo com a função padrão ***********\n\n")
 
-deff('y = f(x)', 'y = x^3 - 9*x + 3')
-ak = 0.0
+
+deff('y = f(x)', 'y = exp(-x)-sin(x)')
+//deff('y = f(x)', 'y = x^2 + log(x)')
+//deff('y = f(x)', 'y = x^2 + ln(x)')
+//deff('y = f(x)', 'y = x^3 - 9*x + 3')
+
+ak = 0.5
 bk = 1.0
 
-epsilon1 = 1e-6
-epsilon2 = 1e-6
+epsilon1 = 1e-5
+epsilon2 = 1e-5
 k = 0
 nmax = 100
-xm = 0.5 * (ak + bk)
+xm = 1 * (ak + bk)
 
 printf("  k  |  xm  |  abs(bk - ak)  |  f(xm)  \n")
  while (k < nmax) & (abs(bk - ak) > epsilon1) & (abs(f(xm)) > epsilon2) 

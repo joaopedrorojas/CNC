@@ -5,12 +5,16 @@ clear(); // limpa variaveis
 printf("*********** Aproximação de raízes de funções usando o método da falsa posição ***********\n\n")
 printf("*********** Exemplo com a função padrão ***********\n\n")
 
-deff('y = f(x)', 'y = x^3 - 9*x + 3')
-ak = 0.0
+
+deff('y = f(x)', 'y = exp(-x)-sin(x)')
+//deff('y = f(x)', 'y = x^2 + log(x)')
+//deff('y = f(x)', 'y = x^3 - 9*x + 3')
+
+ak = 0.5
 bk = 1.0
 
-epsilon1 = 1e-6
-epsilon2 = 1e-6
+epsilon1 = 1e-5
+epsilon2 = 1e-5
 k = 0
 nmax = 100
 Xk = ak - (f(ak) * (bk - ak) / (f(bk) - f(ak)))
