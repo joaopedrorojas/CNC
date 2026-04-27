@@ -23,6 +23,11 @@ printf("\n********** Triangularizacao **********:\n")
 
 n = length(B)
 for k = (1:n-1)
+
+    if A(k, k) == 0 then
+        error("\n Erro: surgiu pivô nulo durante o escalonamento\n")
+    end
+
 	for i = (k+1:n)
 		m = A(i, k)/A(k, k)
 		A(i, k) = 0
@@ -60,7 +65,7 @@ for k = (n-1:-1:1)
 end
 
 //Dados de saida - solucao X, do sistema AX=B
-printf("\n .....Saida - Solucao X (do sistema AX=B).....:")
+printf("\n .....Saida - Solucao X (do sistema AX=B).....:\n")
 mprintf(" %.6f\n", [X])
 printf("\n ------------Verificacao do resultado se AX = B------------\n")
 for i = (1:n)
