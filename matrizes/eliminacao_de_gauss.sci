@@ -35,6 +35,7 @@ for k = (1:n-1)
 			A(i, j) = A(i, j) - A(k, j) * m
 		end
 		B(i) = B(i) - B(k) * m
+        //escalonamento:
 		// printf("\nMatriz A\n")
 		// disp(A);
 		// printf("\nMatriz B\n")

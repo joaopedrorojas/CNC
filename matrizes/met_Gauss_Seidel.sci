@@ -1,8 +1,8 @@
 clear();
 
-printf("*** MÉTODO ITERATIVO: GAUSS-JACOBI (REORDENAÇÃO GULOSA) ***\n")
+printf("\n*** MÉTODO ITERATIVO: GAUSS-SEIDEL ***\n")
 
-printf("Resolucao iterativa do sistema linear A*X = B usando o método de Gauss-Jacobi com reordenação gulosa.\n")
+printf("Resolucao iterativa do sistema linear A*X = B usando o método de Gauss-Seidel com reordenação gulosa.\n")
 
 
 A = [4.0, 2.0, -0.3, 0.8;
@@ -10,7 +10,6 @@ A = [4.0, 2.0, -0.3, 0.8;
      0.1, 0.2, 1.0, 0.3;
      0.3, -0.8, -0.3, -0.9];
 B = [4.4; 10.0; 4.0; 7.5];
-
 
 /*
 A = [0.1, 0.2, 1.0, 0.3;
@@ -41,20 +40,23 @@ for i = 1:n
     end
 end
 
-printf("*********Processo Iterativo ***********\n");
-//laco iterativo do método de Gauss-Jacobi
+printf("\n*********Processo Iterativo ************\n");
 convergiu = %f;
+
 for k = 1:Nmax
+    X = X0;
     for i = 1:n
-        S = 0;
-        for j = 1:n
-            if i ~= j then
-                S = S + A(i,j) * X0(j);
-            end
+        S1 = 0;
+        for j = 1:i-1
+            S1 = S1 + A(i,j) * X(j);
         end
-        X(i) = (B(i) - S) / A(i,i);
+        S2 = 0;
+        for j = i+1:n
+            S2 = S2 + A(i,j) * X0(j);
+        end
+        X(i) = (B(i) - S1 - S2) / A(i,i);
     end
-    erro = max(abs(X-X0));
+    erro = max(abs(X - X0));
     if erro < epsilon then
         convergiu = %t;
         break;
@@ -89,4 +91,4 @@ for i = 1:n
     end
 end
 
-printf("\n***** ENCERRAMENTO DO GAUSS-JACOBI *****\n")
+printf("\n***** ENCERRAMENTO DO GAUSS-SEIDEL *****\n")

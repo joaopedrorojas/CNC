@@ -7,10 +7,10 @@ printf("*********** Aproximação de raízes de funções usando o método de Ne
 printf("*********** Exemplo com a função padrão ***********\n\n")
 
 
-deff('y = f(x)', 'y = exp(-x)-sin(x)')
-deff('y = f1(x)', 'y = -exp(-x)-cos(x)')
-//deff('y = f(x)', 'y = x^2 + log(x)')
-//deff('y = f1(x)', 'y = 2*x + 1/x')
+//deff('y = f(x)', 'y = exp(-x)-sin(x)')
+//deff('y = f1(x)', 'y = -exp(-x)-cos(x)')
+deff('y = f(x)', 'y = x*exp(x) - exp(-3)')
+deff('y = f1(x)', 'y = exp(x) * (1 + x)')
 //deff('y = f(x)', 'y = x^3 - 9*x + 3')
 //deff('y = f1(x)', 'y = 3*x^2 - 9')
 
@@ -18,8 +18,8 @@ deff('y = f1(x)', 'y = -exp(-x)-cos(x)')
 
 x_anterior = 0.75
 
-epsilon1 = 1e-5
-epsilon2 = 1e-5
+epsilon1 = 1e-6
+epsilon2 = 1e-6
 k = 0
 nmax = 100
 x_atual = x_anterior - (f(x_anterior) / f1(x_anterior))

@@ -6,16 +6,16 @@ printf("*********** Aproximação de raízes de funções usando o método da bi
 printf("*********** Exemplo com a função padrão ***********\n\n")
 
 
-deff('y = f(x)', 'y = exp(-x)-sin(x)')
+//deff('y = f(x)', 'y = exp(-x)-sin(x)')
 //deff('y = f(x)', 'y = x^2 + log(x)')
-//deff('y = f(x)', 'y = x^2 + ln(x)')
+deff('y = f(x)', 'y = x^2 + log(x)')
 //deff('y = f(x)', 'y = x^3 - 9*x + 3')
 
 ak = 0.5
 bk = 1.0
 
-epsilon1 = 1e-5
-epsilon2 = 1e-5
+epsilon1 = 1e-6
+epsilon2 = 1e-6
 k = 0
 nmax = 100
 xm = 1 * (ak + bk)

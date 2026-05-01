@@ -5,13 +5,13 @@ clear();   // limpa variaveis
 printf("*********** Aproximação de raízes de funções usando o método de Secante ***********\n\n")
 printf("*********** Exemplo com a função padrão ***********\n\n")
 
-deff('y = f(x)', 'y = exp(-x)-sin(x)')
+deff('y = f(x)', 'y = x^2 + log(x)')
 
 x_anterior0 = 0.5
 x_anterior1 = 1.0
 
-epsilon1 = 1e-5
-epsilon2 = 1e-5
+epsilon1 = 1e-6
+epsilon2 = 1e-6
 k = 0
 nmax = 100
 
