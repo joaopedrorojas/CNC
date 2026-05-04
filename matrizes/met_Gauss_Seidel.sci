@@ -2,22 +2,22 @@ clear();
 
 printf("\n*** MÉTODO ITERATIVO: GAUSS-SEIDEL ***\n")
 
-printf("Resolucao iterativa do sistema linear A*X = B usando o método de Gauss-Seidel com reordenação gulosa.\n")
+printf("Resolucao iterativa do sistema linear A*X = B usando o método de Gauss-Seidel.\n")
 
-
+/*
 A = [4.0, 2.0, -0.3, 0.8;
      0.6, 3.2, -1.8, 0.4;
      0.1, 0.2, 1.0, 0.3;
      0.3, -0.8, -0.3, -0.9];
 B = [4.4; 10.0; 4.0; 7.5];
+*/
 
-/*
 A = [0.1, 0.2, 1.0, 0.3;
      0.3, -0.8, -0.3, -0.9;
      4.0, 2.0, -0.3, 0.8;
      0.6, 3.2, -1.8, 0.4];
 B = [4.0; 7.5; 4.4; 10.0];
-*/
+
 
 
 printf("**********Dados de entrada Matriz A e Vetor B:***********\n");

@@ -1,8 +1,8 @@
 clear();
 
-printf("*** MÉTODO ITERATIVO: GAUSS-JACOBI (REORDENAÇÃO GULOSA) ***\n")
+printf("*** MÉTODO ITERATIVO: GAUSS-JACOBI ***\n")
 
-printf("Resolucao iterativa do sistema linear A*X = B usando o método de Gauss-Jacobi com reordenação gulosa.\n")
+printf("Resolucao iterativa do sistema linear A*X = B usando o método de Gauss-Jacobi.\n")
 
 
 A = [4.0, 2.0, -0.3, 0.8;

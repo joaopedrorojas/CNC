@@ -4,20 +4,20 @@ printf("\n*** MÉTODO ITERATIVO: GAUSS-SEIDEL (REORDENAÇÃO GULOSA) ***\n")
 
 printf("Resolucao iterativa do sistema linear A*X = B usando o método de Gauss-Seidel com reordenação gulosa.\n")
 
-
+/*
 A = [4.0, 2.0, -0.3, 0.8;
      0.6, 3.2, -1.8, 0.4;
      0.1, 0.2, 1.0, 0.3;
      0.3, -0.8, -0.3, -0.9];
 B = [4.4; 10.0; 4.0; 7.5];
+*/
 
-/*
 A = [0.1, 0.2, 1.0, 0.3;
      0.3, -0.8, -0.3, -0.9;
      4.0, 2.0, -0.3, 0.8;
      0.6, 3.2, -1.8, 0.4];
 B = [4.0; 7.5; 4.4; 10.0];
-*/
+
 
 
 printf("**********Dados de entrada Matriz A e Vetor B:***********\n");
@@ -87,6 +87,13 @@ if sucesso then
     disp(B);
 else
     error(" Não foi possível aplicar a reordenação gulosa.");
+end
+
+//verificacao de pivos nulos na diagonal principal
+for i = 1:n
+    if T(i,i) == 0 then
+        error("Pivô nulo encontrado na diagonal principal. Método falha.\n\n");
+    end
 end
 
 for k = 1:Nmax

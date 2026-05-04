@@ -16,12 +16,14 @@ A = [4.0, 2.0, -0.3, 0.8;
 B = [4.4; 10.0; 4.0; 7.5];
 T = A
 
-/* Matriz que só funciona com o met Gauss Seidel
+//Matriz que só funciona com o met Gauss Seidel
+/*
 A = [0.1, 0.2, 1.0, 0.3;
      0.3, -0.8, -0.3, -0.9;
      4.0, 2.0, -0.3, 0.8;
      0.6, 3.2, -1.8, 0.4];
 B = [4.0; 7.5; 4.4; 10.0];
+T = A
 */
 
 A_global = A
