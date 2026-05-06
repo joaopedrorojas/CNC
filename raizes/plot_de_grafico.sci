@@ -5,9 +5,9 @@ clear();clf() // limpa variaveis
 printf("*********** Método da bissecção para encontrar raízes de funções ***********\n\n")
 printf("*********** Exemplo com a função padrão ***********\n\n")
 
-x = -0.5 : 0.01 : 1
+x = 0 : 0.01 : 10
 //y = x.^2 + log(x)
-y = x.^2 + log(x);
+y = 5 - 20*(exp(-0.2*x) - exp(-0.75*x))
 
 plot2d(x,y)
 h = gce()

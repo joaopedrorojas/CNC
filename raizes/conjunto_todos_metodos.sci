@@ -9,14 +9,37 @@ printf("\n\n*********** Aproximação de raízes de funções usando o método d
 
 //deff('y = f(x)', 'y = exp(-x)-sin(x)')
 //deff('y = f1(x)', 'y = -exp(-x)-cos(x)')
-deff('y = f(x)', 'y = x*exp(x) - exp(-3)')
-deff('y = f1(x)', 'y = exp(x) * (1 + x)')
+deff('y = f(x)', 'y = 7*(2 - 0.9^x) - 10')
+deff('y = f1(x)', 'y = -7*(0.9^x) * log(0.9)')
 //deff('y = f(x)', 'y = x^3 - 9*x + 3')
 //deff('y = f1(x)', 'y = 3*x^2 - 9')
 
 
-ak = -0.2
-bk = 0.8
+ak_global = 4
+bk_global = 6
+chute_inicial = 5
+
+printf("\n\n** Isolamento de raízes pelo TVI **\n\n")
+
+// define a função f(x)
+//deff('y = f(x)', 'y = 5 - 20*(exp(-0.2*x) - exp(-0.75*x))')
+
+a = 0; // início do intervalo de busca
+b = 10; // fim do intervalo de busca
+passo = 1; // tamanho do subintervalo
+
+printf("Intervalos que podem conter raízes:\n")
+for x = a:passo:(b-passo)
+    fa = f(x);
+    fb = f(x+passo);
+    if fa * fb < 0 then
+        printf("[%f, %f]\n\n", x, x+passo)
+    end
+end
+
+
+ak = ak_global
+bk = bk_global
 
 epsilon1 = 1e-6
 epsilon2 = 1e-6
@@ -48,8 +71,8 @@ printf("Numero de iteracoes: %i\n\n\n\n", k)
 printf("*********** Aproximação de raízes de funções usando o método da falsa posição ***********\n\n")
 
 
-ak = -0.2
-bk = 0.8
+ak = ak_global
+bk = bk_global
 
 k = 0
 Xk = ak - (f(ak) * (bk - ak) / (f(bk) - f(ak)))
@@ -76,7 +99,7 @@ printf("Numero de iteracoes: %i\n\n\n\n", k)
 printf("*********** Aproximação de raízes de funções usando o método de Newton-Raphson ***********\n\n")
 
 
-x_anterior = 0.3
+x_anterior = chute_inicial
 
 k = 0
 
@@ -102,8 +125,8 @@ printf("Numero de iteracoes: %i\n\n\n\n", k)
 printf("*********** Aproximação de raízes de funções usando o método de Secante ***********\n\n")
 
 
-x_anterior0 = -0.2
-x_anterior1 = 0.8
+x_anterior0 = ak_global
+x_anterior1 = bk_global
 
 k = 0
 
@@ -125,9 +148,9 @@ printf("Numero de iteracoes: %i\n\n\n\n", k)
 
 //**************************************************************************
 
-x = -2 : 0.01 : 2
-//y = x.^2 + log(x)
-y = x * exp(x) - exp(-3)
+x = 0: 0.01 : 10
+y = 7*(2 - 0.9^x) - 10
+clf();
 
 plot2d(x,y)
 h = gce()

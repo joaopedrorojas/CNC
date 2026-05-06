@@ -9,22 +9,14 @@ printf("\t\t############################################################\n\n\n")
 
 printf("\n\n**************** Eliminação de Gauss ****************\n\n")
 
-A = [4.0, 2.0, -0.3, 0.8;
-     0.6, 3.2, -1.8, 0.4;
-     0.1, 0.2, 1.0, 0.3;
-     0.3, -0.8, -0.3, -0.9];
-B = [4.4; 10.0; 4.0; 7.5];
+A = [2, -1, 0, 0, 0;
+     -1, 2,-1, 0, 0;
+     0, -1, 2, -1, 0;
+     0, 0, -1, 2, -1;
+     0, 0, 0, -1, 2];
+B = [100, 0, 0, 0, 200];
 T = A
 
-//Matriz que só funciona com o met Gauss Seidel
-/*
-A = [0.1, 0.2, 1.0, 0.3;
-     0.3, -0.8, -0.3, -0.9;
-     4.0, 2.0, -0.3, 0.8;
-     0.6, 3.2, -1.8, 0.4];
-B = [4.0; 7.5; 4.4; 10.0];
-T = A
-*/
 
 A_global = A
 B_global = B
@@ -196,7 +188,119 @@ printf("\n\n**************** Fim da Decomposicao LU-Crout ****************\n\n")
 printf("\n===============================================================================================================\n")
 
 
-printf("\n\n**************** MÉTODO: GAUSS-JACOBI ****************\n\n")
+printf("\n\n**************** MÉTODO: TDMA****************\n\n")
+
+
+printf("*** MÉTODO DIRETO: THOMAS (TDMA) - SISTEMAS TRIDIAGONAIS ***\n");
+
+a = [0; -1; -1; -1; -1]; //diagonal superior
+b = [2; 2; 2; 2; 2];  //diagonal principal
+c = [-1; -1; -1; -1; 0];  //diagonal inferior
+d = [100; 0; 0; 0; 200];  //termos independente
+
+ta = a;
+tb = b;
+tc = c;
+td = d;
+
+
+printf("\n Vetor a:\n");
+for i = 1 : length(a)
+    mprintf("%10.6f\n", a(i));
+end
+
+printf("\n Vetor b:\n");
+for i = 1 : length(b)
+    mprintf("%10.6f\n", b(i));
+end
+
+printf("\n Vetor c:\n");
+for i = 1 : length(c)
+    mprintf("%10.6f\n", c(i));
+end
+
+printf("\n Vetor d:\n");
+for i = 1 : length(d)
+    mprintf("%10.6f\n", d(i));
+end
+
+printf("\n**********************TRIANGULARIZACAO***************************\n");
+
+n = length(b)
+if b(1) == 0 then
+    error("Pivô nulo encontrado na primeira linha. Método falha.");
+end
+
+c(1) = c(1) / b(1);
+d(1) = d(1) / b(1);
+
+for i = 2:n-1
+    temp = b(i) - a(i) * c(i-1);
+    if temp == 0 then
+        error("Pivô nulo encontrado durante a triangulariacao");
+    end
+    c(i) = c(i) / temp;
+    d(i) = (d(i) - a(i) * d(i-1)) / temp;
+end
+
+temp = b(n) - a(n) * c(n-1);
+
+if temp == 0 then
+    error("Pivô nulo encontrado na última linha. Método falha.");
+end
+d(n) = (d(n) - a(n) * d(n-1)) / temp;
+
+printf("\n saida - vetor c modificado:\n");
+for i = 1 : n
+    mprintf("%10.6f\n", c(i));
+end
+
+printf("\n saida - vetor d modificado:\n");
+for i = 1 : n
+    mprintf("%10.6f\n", d(i));
+end
+
+
+printf("\n**********************RETROSUBSTITUICAO***************************\n");
+//algoritmo de retrosubstituição
+X = zeros(n,1);
+X(n) = d(n);
+for i = (n-1:-1:1)
+    X(i) = d(i) - c(i) * X(i+1);
+end
+
+printf("\n Solução X do sistema:\n");
+mprintf("  %.6f\n", X);
+
+printf("\n ****************Verificação da solução se TX = d:***********\n\n");
+
+for i = 1:n
+    s = 0;
+    if i > 1 then
+        s = s + ta(i) * X(i-1);
+        printf("  %.3f * %.3f +", ta(i), X(i-1));
+    end
+
+    s = s + tb(i) * X(i);
+    if i < n then
+        printf("(%.3f * %.3f) +", tb(i), X(i));
+        s = s + tc(i) * X(i+1);
+        printf("(%.3f * %.3f) =", tc(i), X(i+1));
+    else
+        printf("(%.3f * %.3f) =", tb(i), X(i));
+    end
+    printf(" %.3f\n", s);
+end
+
+
+
+printf("\n\n**************** ENCERRAMENTO DO TDMA ****************\n\n");
+
+
+printf("\n===============================================================================================================\n")
+
+
+printf("\n\n**************** MÉTODO: GAUSS-JACOBI GULOSO****************\n\n")
 
 A = A_global
 B = B_global
@@ -206,12 +310,60 @@ disp(A);
 printf("\n Vetor B(original):\n");
 disp(B);
 
-n = length(B);
+n = size(A,1)
 Nmax = 200
 epsilon = 1.0e-6
-X0 = [0; 0; 0; 0];
+X0 = [0; 0; 0; 0; 0];
 X = X0
-T = T_global
+T = T_global;
+
+function [A_greedy, B_greedy, sucesso, ordem] = reordenar_greedy(A, B)
+    n = size(A,1)
+    usados = zeros(n,1)
+    ordem = zeros(n,1)
+    sucesso = %T
+    
+    for j = 1:n
+        maior = -%inf
+        linha_melhor = -1
+        for i = 1:n
+            if usados(i) == 0 then
+                if abs(A(i,j)) > maior then
+                    maior = abs(A(i,j))
+                    linha_melhor = i
+                end
+            end
+        end
+        if linha_melhor == -1 then
+            sucesso = %F
+            A_greedy = A
+            B_greedy = B
+            return
+        end
+        ordem(j) = linha_melhor
+        usados(linha_melhor) = 1
+    end
+    
+    A_greedy = A(ordem, :)
+    B_greedy = B(ordem)
+endfunction
+
+printf("\n****** Reordenação Gulosa ******\n\n")
+[A, B, sucesso, ordem_linhas] = reordenar_greedy(A,B)
+
+if sucesso then
+    printf("\n Reordenação Gulosa aplicada com sucesso.\n")
+    printf(" Ordem das linhas escolhida:")
+    disp(ordem_linhas')
+    
+    printf("\n Matriz A após reordenação:")
+    disp(A)
+    printf("\n Vetor B após ordenação:")
+    disp(B)
+else
+    error(" Não foi possível aplicar a reordenação gulosa.")
+end
+
 
 for i = 1:n
     if T(i,i) == 0 then
@@ -264,13 +416,13 @@ for i = 1:n
     end
 end
 
-printf("\n\n**************** ENCERRAMENTO DO GAUSS-JACOBI ****************\n\n")
+printf("\n\n**************** ENCERRAMENTO DO GAUSS-JACOBI GULOSO ****************\n\n")
 
 
 printf("\n===============================================================================================================\n")
 
 
-printf("\n\n**************** MÉTODO ITERATIVO: GAUSS-SEIDEL ****************\n\n")
+printf("\n\n**************** MÉTODO ITERATIVO: GAUSS-SEIDEL GULOSO ****************\n\n")
 
 A = A_global
 B = B_global
@@ -282,7 +434,7 @@ disp(B);
 
 n = length(B);
 epsilon = 1.0e-6
-X0 = [0; 0; 0; 0];
+X0 = [0; 0; 0; 0; 0];
 X = X0
 T = T_global
 
@@ -293,7 +445,55 @@ for i = 1:n
     end
 end
 
+printf("\n*********Processo Iterativo ************\n");
 convergiu = %f;
+funcprot(0)
+
+function [A_greedy, B_greedy, sucesso, ordem] = reordenar_greedy(A, B)
+    n = size(A,1);
+    usados = zeros(n,1);
+    ordem = zeros(n,1);
+    sucesso = %T;
+    
+    for j = 1:n
+        maior = -%inf;
+        linha_melhor = -1;
+        for i = 1:n
+            if usados(i) == 0 then
+                if abs(A(i,j)) > maior then
+                    maior = abs(A(i,j));
+                    linha_melhor = i;
+                end
+            end
+        end
+        if linha_melhor == -1 then
+            sucesso = %F;
+            A_greedy = A;
+            B_greedy = B;
+            return;
+        end
+        ordem(j) = linha_melhor;
+        usados(linha_melhor) = 1;
+    end
+    
+    A_greedy = A(ordem, :);
+    B_greedy = B(ordem);
+endfunction;
+
+[A, B, sucesso, ordem_linhas] = reordenar_greedy(A,B);
+
+if sucesso then
+    printf("\n Reordenação Gulosa aplicada com sucesso.\n");
+    printf(" Ordem das linhas escolhida:");
+    disp(ordem_linhas');
+    
+    printf("\n Matriz A após reordenação:");
+    disp(A);
+    printf("\n Vetor B após ordenação:");
+    disp(B);
+else
+    error(" Não foi possível aplicar a reordenação gulosa.");
+end
 
 for k = 1:Nmax
     X = X0;
@@ -342,4 +542,4 @@ for i = 1:n
     end
 end
 
-printf("\n\n**************** ENCERRAMENTO DO GAUSS-SEIDEL ****************\n\n")
+printf("\n\n**************** ENCERRAMENTO DO GAUSS-SEIDEL GULOSO ****************\n\n")

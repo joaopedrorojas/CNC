@@ -2,10 +2,10 @@ clear();
 
 printf("*** MÉTODO DIRETO: THOMAS (TDMA) - SISTEMAS TRIDIAGONAIS ***\n");
 
-a = [0; -1; -1]; //diagonal superior
-b = [2; 2; 2];  //diagonal principal
-c = [-1; -1; 0];  //diagonal inferior
-d = [1; 1; 1];  //termos independente
+a = [0; -1; -1; -1; -1]; //diagonal superior
+b = [2; 2; 2; 2; 2];  //diagonal principal
+c = [-1; -1; -1; -1; 0];  //diagonal inferior
+d = [100; 0; 0; 0; 200];  //termos independente
 
 ta = a;
 tb = b;
