@@ -15,6 +15,7 @@ A = [1, 1, 1;
      2, 2, 1];
 B = [1; 0; 1];
 T = A
+dimensao = size(A)
 /*
 //letra B
 A = [1, 10, 3;
@@ -52,9 +53,10 @@ A_global = A
 B_global = B
 T_global = T
 
-printf("\n .....Entrada - Matriz A (original).....:")
+printf("\n Entrada - Matriz A (original):")
 disp(A)
-printf("\n .....Entrada - Vetor B (original).....:\n")
+printf("\n Dimensão da matriz A : %d\n", dimensao)
+printf("\n Entrada - Vetor B (original):\n")
 disp(B)
 
 n = length(B)

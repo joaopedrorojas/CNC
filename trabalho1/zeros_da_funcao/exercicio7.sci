@@ -1,32 +1,17 @@
 clear();   // limpa variaveis
-//**************************************************************************
 
-//Mét. Bissecção para encontrar raízes de funções
+deff('y = f(x)', 'y = 25*x^2 + log(x) - 0.0000015')
+deff('y = f1(x)', 'y = 50*x + 1/x')
 
-
-printf("\n\n*********** Aproximação de raízes de funções usando o método da bissecção ***********\n\n")
-
-
-//deff('y = f(x)', 'y = exp(-x)-sin(x)')
-//deff('y = f1(x)', 'y = -exp(-x)-cos(x)')
-deff('y = f(x)', 'y = 7*(2 - 0.9^x) - 10')
-deff('y = f1(x)', 'y = -7*(0.9^x) * log(0.9)')
-//deff('y = f(x)', 'y = x^3 - 9*x + 3')
-//deff('y = f1(x)', 'y = 3*x^2 - 9')
-
-
-ak_global = 4
-bk_global = 6
-chute_inicial = 5
+ak_global = 0.2
+bk_global = 0.3
+chute_inicial = 0.25
 
 printf("\n\n** Isolamento de raízes pelo TVI **\n\n")
 
-// define a função f(x)
-//deff('y = f(x)', 'y = 5 - 20*(exp(-0.2*x) - exp(-0.75*x))')
-
-a = 0; // início do intervalo de busca
-b = 10; // fim do intervalo de busca
-passo = 1; // tamanho do subintervalo
+a = 0.1; // início do intervalo de busca
+b = 0.5; // fim do intervalo de busca
+passo = 0.1; // tamanho do subintervalo
 
 printf("Intervalos que podem conter raízes:\n")
 for x = a:passo:(b-passo)
@@ -39,6 +24,7 @@ for x = a:passo:(b-passo)
     end
 end
 
+printf("\n*** Método da bissecção ***\n\n")
 
 ak = ak_global
 bk = bk_global
@@ -68,8 +54,7 @@ printf("Numero de iteracoes: %i\n\n\n\n", k)
 
 //**************************************************************************
 
-printf("*********** Aproximação de raízes de funções usando o método da falsa posição ***********\n\n")
-
+printf("*** Método da falsa posição ***\n\n")
 
 ak = ak_global
 bk = bk_global
@@ -92,12 +77,9 @@ end
 printf("\nRaiz aproximada pelo método da falsa posição: %10.6f\n", Xk)
 printf("Numero de iteracoes: %i\n\n\n\n", k)
 
-
 //**************************************************************************
 
-
-printf("*********** Aproximação de raízes de funções usando o método de Newton-Raphson ***********\n\n")
-
+printf("*** Método de Newton-Raphson ***\n\n")
 
 x_anterior = chute_inicial
 
@@ -122,7 +104,7 @@ printf("Numero de iteracoes: %i\n\n\n\n", k)
 //Mét. de Secante para encontrar raízes de funções
 
 
-printf("*********** Aproximação de raízes de funções usando o método de Secante ***********\n\n")
+printf("*** Método de Secante ***\n\n")
 
 
 x_anterior0 = ak_global
@@ -147,24 +129,24 @@ printf("Numero de iteracoes: %i\n\n\n\n", k)
 
 printf("******** Teste do Sinal para verificar se tem raiz no intervalo ********\n\n")
 
-printf(" f(%d) * f(%d) = %f \n", intervalo1, intervalo2, f(intervalo1) * f(intervalo2))
-printf(" Como f(%d) * f(%d) <  0, existe pelo menos uma raiz no intervalo [%d, %d]\n\n", intervalo1, intervalo2, intervalo1, intervalo2)
+printf(" f(%.2f) * f(%.2f) = %f \n", intervalo1, intervalo2, f(intervalo1) * f(intervalo2))
+printf(" Como f(%.2f) * f(%.2f) <  0, existe pelo menos uma raiz no intervalo [%.2f, %.2f]\n\n", intervalo1, intervalo2, intervalo1, intervalo2)
 
 printf("******** Teste da Derivada primeira ********\n\n")
-printf(" f¹(%d) = %f e f¹(%d) = %f \n", intervalo1, f1(intervalo1), intervalo2, f1(intervalo2))
+printf(" f¹(%.2f) = %f e f¹(%.2f) = %f \n", intervalo1, f1(intervalo1), intervalo2, f1(intervalo2))
 printf(" %f * %f = %f \n", f1(intervalo1), f1(intervalo2), f1(intervalo1) * f1(intervalo2))
-printf(" Como f¹(%d) * f¹(%d) > 0 então existe apenas uma raiz no intervalo [%d, %d]\n\n", intervalo1, intervalo2, intervalo1, intervalo2)
+printf(" Como f¹(%.2f) * f¹(%.2f) > 0 então existe apenas uma raiz no intervalo [%d, %d]\n\n", intervalo1, intervalo2, intervalo1, intervalo2)
 
 printf("******** Teste para verificar se realmente tem raiz no ponto encontrado ********\n\n")
 printf(" f(%f) = %.6f \n", raizcerta, f(raizcerta))
 printf(" Como f(%f) é aproximadamente zero, então %f é uma raiz da função\n\n", raizcerta, raizcerta)
 //**************************************************************************
 
-x = 0: 0.01 : 10
-y = 7*(2 - 0.9^x) - 10
+x = 0.1: 0.01 : 5
+y = 25.*x.^2 + log(x) - 0.0000015
 clf();
 
-plot2d(x,y)
+plot2d(x, y)
 h = gce()
 line_handle = h.children
 line_handle.thickness = 4
@@ -177,6 +159,5 @@ a.x_location = "origin"; // Coloca o eixo Y no zero
 a.y_location = "origin"; // Coloca o eixo X no zero
 a.title.font_size = 4
 plot(raizcerta, f(raizcerta), "ro", "markersize", 10, "markerfacecolor", "red");
-
 
 xgrid(1)

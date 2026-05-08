@@ -3,7 +3,7 @@
 
 clear();clf()
 
-function y = x3 - 2*x - 5  
+function y = x^3 - 2*x - 5  
      
 endfunction;
 

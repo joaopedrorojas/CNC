@@ -1,31 +1,16 @@
 clear();   // limpa variaveis
-//**************************************************************************
 
-//Mét. Bissecção para encontrar raízes de funções
+deff('y = f(x)', 'y = 230*x^4 + 18*x^3 + 9*x^2 - 221*x - 9')
+deff('y = f1(x)', 'y = 920*x^3 + 54*x^2 + 18*x - 221')
 
-
-printf("\n\n*********** Aproximação de raízes de funções usando o método da bissecção ***********\n\n")
-
-
-//deff('y = f(x)', 'y = exp(-x)-sin(x)')
-//deff('y = f1(x)', 'y = -exp(-x)-cos(x)')
-deff('y = f(x)', 'y = 7*(2 - 0.9^x) - 10')
-deff('y = f1(x)', 'y = -7*(0.9^x) * log(0.9)')
-//deff('y = f(x)', 'y = x^3 - 9*x + 3')
-//deff('y = f1(x)', 'y = 3*x^2 - 9')
-
-
-ak_global = 4
-bk_global = 6
-chute_inicial = 5
+ak_global = -0.2
+bk_global = 0.8
+chute_inicial = 0.3
 
 printf("\n\n** Isolamento de raízes pelo TVI **\n\n")
 
-// define a função f(x)
-//deff('y = f(x)', 'y = 5 - 20*(exp(-0.2*x) - exp(-0.75*x))')
-
-a = 0; // início do intervalo de busca
-b = 10; // fim do intervalo de busca
+a = -5; // início do intervalo de busca
+b = 5; // fim do intervalo de busca
 passo = 1; // tamanho do subintervalo
 
 printf("Intervalos que podem conter raízes:\n")
@@ -36,9 +21,11 @@ for x = a:passo:(b-passo)
         printf("[%f, %f]\n\n", x, x+passo)
         intervalo1 = x;
         intervalo2 = x + passo;
+        break;
     end
 end
 
+printf("\n*** Método da bissecção ***\n\n")
 
 ak = ak_global
 bk = bk_global
@@ -68,8 +55,7 @@ printf("Numero de iteracoes: %i\n\n\n\n", k)
 
 //**************************************************************************
 
-printf("*********** Aproximação de raízes de funções usando o método da falsa posição ***********\n\n")
-
+printf("*** Método da falsa posição ***\n\n")
 
 ak = ak_global
 bk = bk_global
@@ -92,12 +78,9 @@ end
 printf("\nRaiz aproximada pelo método da falsa posição: %10.6f\n", Xk)
 printf("Numero de iteracoes: %i\n\n\n\n", k)
 
-
 //**************************************************************************
 
-
-printf("*********** Aproximação de raízes de funções usando o método de Newton-Raphson ***********\n\n")
-
+printf("*** Método de Newton-Raphson ***\n\n")
 
 x_anterior = chute_inicial
 
@@ -122,7 +105,7 @@ printf("Numero de iteracoes: %i\n\n\n\n", k)
 //Mét. de Secante para encontrar raízes de funções
 
 
-printf("*********** Aproximação de raízes de funções usando o método de Secante ***********\n\n")
+printf("*** Método de Secante ***\n\n")
 
 
 x_anterior0 = ak_global
@@ -160,11 +143,11 @@ printf(" f(%f) = %.6f \n", raizcerta, f(raizcerta))
 printf(" Como f(%f) é aproximadamente zero, então %f é uma raiz da função\n\n", raizcerta, raizcerta)
 //**************************************************************************
 
-x = 0: 0.01 : 10
-y = 7*(2 - 0.9^x) - 10
+x = -1: 0.01 : 1
+y = 230.*x.^4 + 18.*x.^3 + 9.*x.^2 - 221.*x - 9
 clf();
 
-plot2d(x,y)
+plot2d(x, y)
 h = gce()
 line_handle = h.children
 line_handle.thickness = 4
@@ -177,6 +160,5 @@ a.x_location = "origin"; // Coloca o eixo Y no zero
 a.y_location = "origin"; // Coloca o eixo X no zero
 a.title.font_size = 4
 plot(raizcerta, f(raizcerta), "ro", "markersize", 10, "markerfacecolor", "red");
-
 
 xgrid(1)

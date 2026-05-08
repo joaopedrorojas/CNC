@@ -7,22 +7,23 @@ printf("\t\t#                >>> INICIO DO PROGRAMA <<<                #\n");
 printf("\t\t#                                                          #\n");
 printf("\t\t############################################################\n\n\n");
 
-printf("\n\n**************** Eliminação de Gauss ****************\n\n")
+printf("\n\n Eliminação de Gauss \n")
 
-//letra A
 A = [1, 1, 1;
      2, 1, -1;
      2, 2, 1];
 B = [1; 0; 1];
 T = A
+dimensao = size(A)
 
 A_global = A
 B_global = B
 T_global = T
 
-printf("\n .....Entrada - Matriz A (original).....:")
+printf("\n Entrada - Matriz A (original):")
 disp(A)
-printf("\n .....Entrada - Vetor B (original).....:\n")
+printf("\n Dimensão da matriz A : %d\n", dimensao)
+printf("\n Entrada - Vetor B (original):\n")
 disp(B)
 
 n = length(B)
@@ -44,9 +45,9 @@ for k = (1:n-1)
 	end
 end
 
-printf("------Entrada - Matriz A (triangularizada)------:")
+printf("\n Entrada - Matriz A (triangularizada) :")
 disp(A)
-printf("\n .....Entrada - Vetor B (triangularizada).....:")
+printf(" Entrada - Vetor B (triangularizada):")
 disp(B)
 
 U = A
@@ -61,38 +62,38 @@ for k = (n-1:-1:1)
     X(k) = (C(k) - soma)/U(k, k)
 end
 
-printf("\n .....Saida - Solucao X (do sistema AX=B).....:\n")
+printf("\n Saida - Solucao X (do sistema AX=B):\n")
 mprintf(" %.6f\n", [X])
-printf("\n ------------Verificacao do resultado se AX = B------------\n")
+printf("\n  Verificacao do resultado se AX = B \n")
 for i = (1:n)
     s = 0
     for j = (1:n)
         s = s + T(i, j)*X(j)
         if (j < n)
-            printf("(%.3d*%.3f) + ", T(i, j), X(j))
+            printf("(%.3f*%.3f) + ", T(i, j), X(j))
         end
         if (j == n)
-            printf("(%.3d*%.3f) ", T(i, j), X(j))
+            printf("(%.3f*%.3f) ", T(i, j), X(j))
             printf("= %.6f\n", s)
         end
     end
 end
-printf("\n\n**************** Fim da Eliminacao de Gauss ****************\n\n")
+printf("\n Fim da Eliminacao de Gauss \n\n")
 
 
 printf("\n================================================================================================================\n")
 
 
-printf("\n\n**************** Fatoracao LU ****************\n\n");
+printf("\n\n Fatoracao LU \n");
 
 
 A = A_global
 B = B_global
 T = T_global
 
-printf("\n .....Entrada - Matriz A (original).....:");
+printf("\n Entrada - Matriz A (original):");
 disp(A);
-printf("\n .....Entrada - Vetor B (original).....:");
+printf("\n Entrada - Vetor B (original):");
 disp(B);
 
 n = length(B);
@@ -123,9 +124,9 @@ for j = 1:n
     end
 end
 
-printf("\n .....Matriz L (triangular inferior).....:");
+printf("\n Matriz L (triangular inferior):");
 disp(L);
-printf("\n .....Matriz U (triangular superior).....:");
+printf("\n Matriz U (triangular superior):");
 disp(U);
 
 Y = zeros(n, 1);
@@ -144,7 +145,7 @@ for i = 2:n
     Y(i) = (B(i) - SomaLY)/L(i, i);
 end
 
-printf("\n .....Vetor Y (solucao de LY=B).....:");
+printf("\n Vetor Y (solucao de LY=B):");
 disp(Y);
 
 X = zeros(n, 1);
@@ -162,9 +163,9 @@ for i = (n-1:-1:1)
     X(i) = Y(i) - SomaUX;
 end
 
-printf("\n .....Vetor X (solucao de UX=Y).....:\n");
+printf("\n Vetor X (solucao de UX=Y):");
 disp(X);
-printf("\n ------------Verificacao do resultado se AX = B------------\n\n");
+printf("\n  Verificacao do resultado se AX = B \n\n");
 //Verificacao do resultado se AX = B
 for i = (1:n)
     s = 0;
@@ -180,13 +181,13 @@ for i = (1:n)
     end
 end
 
-printf("\n\n**************** Fim da Decomposicao LU-Crout ****************\n\n");
+printf("\n Fim da Decomposicao LU-Crout \n\n");
 
 
 printf("\n===============================================================================================================\n")
 
 
-printf("\n\n**************** MÉTODO: GAUSS-JACOBI GULOSO****************\n\n")
+printf("\n\n MÉTODO: GAUSS-JACOBI GULOSO\n")
 
 A = A_global
 B = B_global
@@ -199,7 +200,7 @@ disp(B);
 n = size(A,1)
 Nmax = 100
 epsilon = 1.0e-6
-X0 = [0; 0; 0; 0];
+X0 = [0; 0; 0];
 X = X0
 T = T_global;
 
@@ -234,14 +235,9 @@ function [A_greedy, B_greedy, sucesso, ordem] = reordenar_greedy(A, B)
     B_greedy = B(ordem)
 endfunction
 
-printf("\n****** Reordenação Gulosa ******\n\n")
 [A, B, sucesso, ordem_linhas] = reordenar_greedy(A,B)
 
 if sucesso then
-    printf("\n Reordenação Gulosa aplicada com sucesso.\n")
-    printf(" Ordem das linhas escolhida:")
-    disp(ordem_linhas')
-    
     printf("\n Matriz A após reordenação:")
     disp(A)
     printf("\n Vetor B após ordenação:")
@@ -302,13 +298,13 @@ for i = 1:n
     end
 end
 
-printf("\n\n**************** ENCERRAMENTO DO GAUSS-JACOBI GULOSO ****************\n\n")
+printf("\n ENCERRAMENTO DO GAUSS-JACOBI GULOSO \n\n")
 
 
 printf("\n===============================================================================================================\n")
 
 
-printf("\n\n**************** MÉTODO ITERATIVO: GAUSS-SEIDEL GULOSO ****************\n\n")
+printf("\n\n MÉTODO ITERATIVO: GAUSS-SEIDEL GULOSO \n")
 
 A = A_global
 B = B_global
@@ -331,7 +327,6 @@ for i = 1:n
     end
 end
 
-printf("\n*********Processo Iterativo ************\n");
 convergiu = %f;
 funcprot(0)
 
@@ -369,10 +364,6 @@ endfunction;
 [A, B, sucesso, ordem_linhas] = reordenar_greedy(A,B);
 
 if sucesso then
-    printf("\n Reordenação Gulosa aplicada com sucesso.\n");
-    printf(" Ordem das linhas escolhida:");
-    disp(ordem_linhas');
-    
     printf("\n Matriz A após reordenação:");
     disp(A);
     printf("\n Vetor B após ordenação:");
@@ -428,4 +419,4 @@ for i = 1:n
     end
 end
 
-printf("\n\n**************** ENCERRAMENTO DO GAUSS-SEIDEL GULOSO ****************\n\n")
+printf("\n ENCERRAMENTO DO GAUSS-SEIDEL GULOSO \n\n")
