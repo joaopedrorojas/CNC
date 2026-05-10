@@ -1,7 +1,7 @@
 clear();   // limpa variaveis
 
-deff('y = f(x)', 'y = 162.5*x^3 + 243.75*x^2 + 130*x - 43.75')
-deff('y = f1(x)', 'y = 487.5*x^2 + 487.5*x + 130')
+deff('y = f(x)', 'y = 162.5*x^3 - 243.75*x^2 + 130*x - 43.75')
+deff('y = f1(x)', 'y = 487.5*x^2 - 487.5*x + 130')
 
 ak_global = 0
 bk_global = 1
@@ -142,8 +142,8 @@ printf(" f(%f) = %.6f \n", raizcerta, f(raizcerta))
 printf(" Como f(%f) é aproximadamente zero, então %f é uma raiz da função\n\n", raizcerta, raizcerta)
 //**************************************************************************
 
-x = -0: 0.01 : 1
-y = 162.5*x.^3 + 243.75*x.^2 + 130*x - 43.75
+x = -0: 0.01 : 2
+y = 162.5*x.^3 - 243.75*x.^2 + 130*x - 43.75
 clf();
 
 plot2d(x, y)
