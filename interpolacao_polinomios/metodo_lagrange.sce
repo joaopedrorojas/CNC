@@ -19,8 +19,8 @@ exec(caminho + "07_plotar_interpolador.sce", -1);
 
 // [1] entrada de dados
 
-X = [-1, 0, 2]
-Y = [4, 1, -1]
+X = [100, 200, 400, 800]
+Y = [30.5, 45.0, 70.2, 120.0]
 
 n = length(X)
 
@@ -39,7 +39,7 @@ for i = 1:n
 end
 
 // [3] exibicao do polinomio interpolador
-pontos = [-0.5, 0.5]
+pontos = [300, 600]
 valores_ref = [%nan, %nan]
 
 printf("\n[3] POLINÔMIO INTERPOLADOR POR LAGRANGE:")

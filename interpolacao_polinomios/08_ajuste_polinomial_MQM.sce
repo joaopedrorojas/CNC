@@ -6,8 +6,8 @@ exec(caminho + "plotar_ajuste_polinomial.sce", -1);
 // [1] entrada dos dados
 // Opção 1: Ler dados de arquivo CSV 
 
-/*
-arquivo_csv = caminho + "teste.csv";  // Caminho do arquivo CSV na mesma pasta do script
+
+arquivo_csv = caminho + "dados_ajuste_quadratico.csv";  // Caminho do arquivo CSV na mesma pasta do script
 dados = csvRead(arquivo_csv);
 
 // Validação: verificar se o arquivo tem exatamente 2 colunas
@@ -19,14 +19,19 @@ else
     printf("\n[ERRO] O arquivo CSV deve ter exatamente 2 colunas (X, Y). Colunas encontradas: %d\n", size(dados, 2));
     abort;
 end
-*/
+
 
 // Opção 2: Dados inseridos manualmente (descomente para usar)
 
+/*
+X = [1, 2, 3, 4, 5, 6, 7, 8]
+Y = [1.2, 2.5, 5.1, 8.9, 13.5, 18.2, 22.0, 24.3]
+*/
 
+/*
 X = [1.3, 3.4, 5.1, 6.8, 8.0]
 Y = [2.0, 5.2, 3.8, 6.1, 5.8]
-
+*/
 
 /*
 X = [-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]

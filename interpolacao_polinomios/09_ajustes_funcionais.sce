@@ -1,7 +1,7 @@
 // AJUSTES FUNCIONAIS BASICOS - INVERSOS, DIRETOS E LINEARES
 /////////////////////////////////////////////////////////////
 
-// Estescript ajusta modelos funcionais simples:
+// Este script ajusta modelos funcionais simples:
 //      [1] Inversamente proporcional    -> T(x) = a / x
 //      [2] Inverso com intercpto        -> T(x) = a / x + b
 //      [3] Direto proporcional          -> T(x) = a * x
@@ -13,8 +13,8 @@
 printf("\n***** AJUSTE FUNCIONAL: Inverso, Direto e Linear *****\n")
 
 //=================== ENTRADA DE DADOS ===================
-X = [10, 20, 50, 100];
-Y = [900, 450, 180, 90];
+X = [1, 3, 6, 10];
+Y = [1, 3, 6, 11];
 
 //=================== MENU DE MODELOS ===================
 printf("\n[1] Modelos disponíveis para ajuste:\n")
@@ -29,7 +29,7 @@ modo = input("\nEscolha o modelo de ajuste (1, 2, 3 ou 4): ")
 printf("----------------------------------------------------------------------\n")
 
 // ========================== PONTOS A AVALIAR ==========================
-pontos = [30, 75]
+pontos = [4,8]
 
 // ========================== AJUSTE POR MQM ==========================
 select modo
@@ -86,7 +86,7 @@ R2 = 1 - SS_res / SS_tot; // Coeficiente de determinação
 
 printf("\n[Coef. de Determinação R^2]: %.6f\n", R2);
 for i = 1:length(pontos)
-    printf("[Predicao %d] T(%.1f) = %.3f segundos\n", i, pontos(i), Y_pontos(i));
+    printf("[Predicao %d] T(%.1f) = %.3f\n", i, pontos(i), Y_pontos(i));
 end
 
 // ========================== PLOTAGEM DO AJUSTE ===========================
@@ -102,23 +102,24 @@ end
 
 //      [Grafico] Dados observados (pontos) e curva de ajuste do modelo selecionado
 
-plot(X, Y, 'ro')
 select modo
-    case 1 then
-        estilo = "b-"   //azul - inversamente proporcional
-    case 2 then
-        estilo = "r-"   //vermelho - inverso com intercepto
-    case 3 then
-        estilo = "m-"   //magenta - direto proporcional
-    case 4 then
-        estilo = "k-"   //preto - linear (afim)
-    else
-        estilo = "g-"   //verde - caso de erro (não deveria ocorrer)
+case 1 then
+    estilo = "b-"   //azul - inversamente proporcional
+case 2 then
+    estilo = "r-"   //vermelho - inverso com intercepto
+case 3 then
+    estilo = "m-"   //magenta - direto proporcional
+case 4 then
+    estilo = "k-"   //preto - linear (afim)
+else
+    estilo = "g-"   //verde - caso de erro (não deveria ocorrer)
 end
 
-plot(xx, yy, estilo, "LineWidth", 3);
-legendas = ["Dados observados", modelo_str];
-legend(legendas, "in_upper_right");
+plot(xx, yy, estilo, "LineWidth", 4);
+plot(X, Y, 'ko', "MarkerSize", 8, "MarkerFaceColor", "white"); // pontos de dados observados
+plot(pontos, Y_pontos, 'bs', "MarkerSize", 8, "MarkerFaceColor", "blue");
+legendas = ["Dados observados", modelo_str, "Pontos a avaliar"];
+legend(legendas, "in_lower_right");
 xtitle("Ajuste do Modelo: " + modelo_str, "x", "T(x)");
 xgrid();
 
